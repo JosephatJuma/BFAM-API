@@ -8,19 +8,27 @@ import {
   useMediaQuery,
   Typography,
   Box,
+  Badge,
+  Avatar,
 } from "@mui/material";
+import { Mail, Notifications } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ShoppingCartCheckout } from "@mui/icons-material";
+import Profile from "./Profile";
 import DrawerComponent from "./DrawerComponent";
+
+//pages link
+import PAGES from "./pages/pages";
+
 function NavBar() {
   const [value, setValue] = useState(0);
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
-  const PAGES = ["Products", "Services", "Contact", "About"];
-  const loggedIn = useSelector((state) => state.loggedIn);
-  const user = useSelector((state) => state.user);
+
+  const loggedIn = useSelector((state) => state.login.loggedIn);
+  const user = useSelector((state) => state.login.user);
 
   console.log(user);
   return (
@@ -48,7 +56,15 @@ function NavBar() {
               </Tabs>
 
               {loggedIn === true ? (
-                <Typography>Hello user</Typography>
+                <Box sx={{ marginLeft: "auto" }}>
+                  <Badge badgeContent={4} color="secondary">
+                    <Notifications color="action" />
+                  </Badge>
+                  <Badge badgeContent={4} color="success">
+                    <Mail color="action" />
+                  </Badge>
+                  <Profile />
+                </Box>
               ) : (
                 <Box sx={{ marginLeft: "auto" }}>
                   <Button

@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import LoginIcon from "@mui/icons-material/Login";
-import { Login } from "@mui/icons-material";
+
+//pages link
+import PAGES from "./pages/pages";
+
 function DrawerComponent() {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const PAGES = ["Product", "Services", "Contact", "About", "Login", "Logout"];
 
   return (
     <React.Fragment>

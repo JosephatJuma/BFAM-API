@@ -3,30 +3,17 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Typography,
-  Card,
-  CardContent,
-  Stack,
-  Divider,
-} from "@mui/material";
-import { useDispatch } from "react-redux";
+import { Box, Button, Checkbox, FormControl, Grid, Alert } from "@mui/material";
+import { IconButton, FormControlLabel, FormHelperText } from "@mui/material";
+import { InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
+import { Card, CardContent, Stack, Divider, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/loginSlice";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useScriptRef from "../../hooks/useScriptRef";
+import { Navigate } from "react-router-dom";
 
 const Login = ({ ...others }) => {
   const theme = useTheme();
@@ -34,6 +21,7 @@ const Login = ({ ...others }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   const [checked, setChecked] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const loggedIn = useSelector((state) => state.login.loggedIn);
   const dispatch = useDispatch();
 
   const googleHandler = async () => {
@@ -50,7 +38,15 @@ const Login = ({ ...others }) => {
 
   return (
     <Card className="card" sx={{ borderRadius: 6 }}>
+      {/* <Alert
+        severity="warning"
+        color="info"
+        sx={{ backgroundColor: "red.300" }}
+      >
+        Error message
+      </Alert> */}
       <CardContent className="login-form">
+        {loggedIn && <Navigate to="/" replace={true} />}
         <Grid item xs={12}>
           <Grid
             container
@@ -214,9 +210,8 @@ const Login = ({ ...others }) => {
             )}
           </Formik>
         </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
+
+        <Divider />
 
         <Grid container direction="column" justifyContent="center" spacing={2}>
           <Grid item xs={12}>
