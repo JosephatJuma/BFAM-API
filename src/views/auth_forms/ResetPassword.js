@@ -15,7 +15,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useScriptRef from "../../hooks/useScriptRef";
 import { Navigate } from "react-router-dom";
 
-const Login = ({ ...others }) => {
+function ResetPassword({ ...others }) {
   const theme = useTheme();
   const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
@@ -24,7 +24,7 @@ const Login = ({ ...others }) => {
   const loggedIn = useSelector((state) => state.login.loggedIn);
   const dispatch = useDispatch();
 
-  const googleHandler = async () => {
+  const handleReset = async () => {
     console.error("Login");
   };
 
@@ -35,7 +35,6 @@ const Login = ({ ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   return (
     <Card className="card" sx={{ borderRadius: 6 }}>
       {/* <Alert
@@ -61,7 +60,7 @@ const Login = ({ ...others }) => {
                   gutterBottom
                   variant={matchDownSM ? "h5" : "h4"}
                 >
-                  Hi, Welcome Back
+                  Reset Password
                 </Typography>
               </Stack>
             </Grid>
@@ -126,7 +125,7 @@ const Login = ({ ...others }) => {
                     id="standard-weight-helper-text-email-login"
                   />
                 </FormControl>
-                <FormControl
+                {/* <FormControl
                   fullWidth
                   error={Boolean(touched.password && errors.password)}
                   sx={{ ...theme.typography.customInput, marginTop: 2 }}
@@ -160,7 +159,7 @@ const Login = ({ ...others }) => {
                     error
                     id="standard-weight-helper-text-password-login"
                   />
-                </FormControl>{" "}
+                </FormControl> */}
                 <Box
                   sx={{
                     display: "flex",
@@ -169,25 +168,14 @@ const Login = ({ ...others }) => {
                     marginTop: 2,
                   }}
                 >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={checked}
-                        onChange={(event) => setChecked(event.target.checked)}
-                        name="checked"
-                        color="primary"
-                      />
-                    }
-                    label="Remember me"
-                  />
                   <Typography
                     variant="subtitle1"
                     color="secondary"
                     sx={{ textDecoration: "none", cursor: "pointer" }}
                     component={Link}
-                    to={"/forgot-password"}
+                    to={"/login"}
                   >
-                    Forgot Password?
+                    I know my password
                   </Typography>
                 </Box>
                 {errors.submit && (
@@ -205,7 +193,7 @@ const Login = ({ ...others }) => {
                     variant="contained"
                     color="secondary"
                   >
-                    Sign in
+                    Reset Password
                   </Button>
                 </Box>
               </Form>
@@ -230,5 +218,6 @@ const Login = ({ ...others }) => {
       </CardContent>
     </Card>
   );
-};
-export default Login;
+}
+
+export default ResetPassword;

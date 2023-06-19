@@ -30,10 +30,10 @@ import {
 // third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Logout, Search, Settings, Person } from "@mui/icons-material";
-
-function Profile() {
+import useAppState from "../../state/state";
+function Profile({ handleLogout }) {
   const theme = useTheme();
-
+  const state = useAppState();
   const navigate = useNavigate();
 
   const [sdm, setSdm] = useState(true);
@@ -41,11 +41,8 @@ function Profile() {
   const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
-  const user = useSelector((state) => state.login.user);
+
   const anchorRef = useRef(null);
-  const handleLogout = async () => {
-    console.log("Logout");
-  };
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -120,7 +117,15 @@ function Profile() {
         color="primary"
       />
       <Popper
-        sx={{ float: "right" }}
+        sx={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "flex-end",
+          margin: 5,
+          marginTop: 10,
+        }}
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
@@ -141,7 +146,7 @@ function Profile() {
           <Paper
             sx={{
               alignSelf: "auto",
-              borderRadius: 2,
+              borderRadius: 5,
               right: 0,
             }}
             placement="bottom-end"
@@ -158,7 +163,9 @@ function Profile() {
                 <Box sx={{ p: 2 }}>
                   <Stack>
                     <Stack direction="column" spacing={0.5} alignItems="center">
-                      <Typography variant="p">Hello, {user.email}</Typography>
+                      <Typography variant="p">
+                        Hello, {state.user.email}
+                      </Typography>
                     </Stack>
                     <Typography variant="subtitle2">Project Admin</Typography>
                   </Stack>
